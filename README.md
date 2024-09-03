@@ -5,10 +5,10 @@ before the party starts and then guess who added each song as it plays at the pa
 
 The point of the game is to have the most correct guesses about who added which song(s)
 
-# Getting started
+## Getting started
 After cloning this repo, you'll need to add and configure some files to get started
 
-## Set up your virtual environment
+### Set up your virtual environment
 
 creat a new virtual environment 
 
@@ -22,7 +22,7 @@ install packages
 
 ```pip install -r requirements.txt```
 
-## Create and configure the .env file
+### Create and configure the .env file
 
 create the .env file
 
@@ -51,13 +51,13 @@ Take the generated code and add it to the .env file
 
 ```SECRET_KEY = <generated code>```
 
-## Create the databases
+### Create the databases
 
 run the following line in the terminal
 
 ```python manage.py migrate```
 
-## Sanity check
+### Sanity check
 
 run the following in the terminal to start the development server.
 
