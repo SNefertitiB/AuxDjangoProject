@@ -10,9 +10,12 @@ After cloning this repo, you'll need to add and configure some files to get star
 
 ### Set up your virtual environment
 
-creat a new virtual environment 
+Creat a new virtual environment
 
 ```python -m venv <environment name>```
+
+I suggest using .venv as the environment name. However, if you want to choose something else,
+be sure to update the .gitignore to ignore the environment file.
 
 activate the environment
 
@@ -31,7 +34,7 @@ create the .env file
 open the file and add
 
 ```
-DEBUG = TRUE
+DEBUG = True
 SECRET_KEY =
 ```
 
