@@ -1,8 +1,10 @@
 from django.http import HttpResponse
+from django.template import loader
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render
 
 from .models import Question
+from .models import Party
 
 # Create your views here.
 def index(request):
@@ -30,10 +32,16 @@ def attending(request, user_id):
     return render(request, "WhosOnAux/attending.html", {"user_id": user_id})
 
 def party(request, user_id, party_id):
-    return render(request, "WhosonAux/party.html", {"user_id": user_id, "party_id": party_id})
+    return render(request, "WhosOnAux/party.html", {"user_id": user_id, "party_id": party_id})
 
 def hosting(request, user_id):
-    return render(request, "WhosOnAux/hosting.html", {"user_id": user_id})
+    parties = Party.objects.all()     # todo, filter by host_id
+    template = loader.get_template("WhosOnAux/hosting.html")
+    context = {
+        "hosting_parties": parties,
+        "user_id": user_id              # todo: error message if not correct user id
+    }
+    return HttpResponse(template.render(context, request))
 
 def dashboard(request, user_id, party_id):
     return render(request, "WhosOnAux/party_dashboard.html", {"user_id": user_id, "party_id": party_id})

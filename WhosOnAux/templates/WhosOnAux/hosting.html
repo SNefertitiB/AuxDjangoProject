@@ -6,5 +6,10 @@
 </head>
 <body>
     <h1>Hosting</h1>
+    <ul>
+        {% for x in hosting_parties %}
+            <li>{{x.name}}</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>

@@ -43,7 +43,7 @@ class Party(models.Model):
 class Playlist(models.Model):
     """
     TODO: not sure this is the most efficient way to store the playlist
-    This will stor all playlist transactions in one database
+    This will store all playlist transactions in one database
     might be better to create a new database for each party?
     database can then be destroyed 1 week after party date?
     """
