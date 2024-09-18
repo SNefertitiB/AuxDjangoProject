@@ -29,7 +29,11 @@ def user_home(request, user_id):
     return render(request, "WhosOnAux/user_home.html", {"user_id": user_id})
 
 def attending(request, user_id):
-    return render(request, "WhosOnAux/attending.html", {"user_id": user_id})
+    context = {
+        "user_id": user_id              # todo: error message if not correct user id
+    }
+    template = loader.get_template("WhosOnAux/attending.html")
+    return HttpResponse(template.render(context, request))
 
 def party(request, user_id, party_id):
     return render(request, "WhosOnAux/party.html", {"user_id": user_id, "party_id": party_id})
