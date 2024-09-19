@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Party</title>
-</head>
-<body>
+{% extends 'WhosOnAux/primary.html' %}
+
+{% block title %}
+  Party
+{% endblock %}
+
+
+{% block content %}
     <h1>Party Name</h1>
     <p>Party Descripton</p>
     <h2>Add songs / songs added</h2>
@@ -32,6 +33,4 @@
 
         <input type="submit" value="Submit">
     </form>
-
-</body>
-</html>
+{% endblock %}

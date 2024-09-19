@@ -1,15 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Hosting</title>
-</head>
-<body>
+{% extends 'WhosOnAux/primary.html' %}
+
+{% block title %}
+  Hosting
+{% endblock %}
+
+
+{% block content %}
     <h1>Hosting</h1>
     <ul>
         {% for x in hosting_parties %}
             <li>{{x.name}}</li>
         {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}
