@@ -6,31 +6,54 @@
 
 
 {% block content %}
-    <h1>Party Name</h1>
-    <p>Party Descripton</p>
-    <h2>Add songs / songs added</h2>
-    <h2>Current song</h2>
+    <div class="row">
+        <div class="container bg-light">
+            <h1>Party Name</h1>
+            <p>Party Descripton</p>
+        </div>
+    </div>
 
-    <h3>Who's on Aux / How many stars?</h3>
-    <form>
-        <input type="radio" id="1" name="num_stars" value="1 Star">
-        <label for="1">1 Star</label><br>
+    <div class="row">
+        <div class="col">
+            <div class="container bg-light">
+                <h2>Current song</h2>
+            </div>
+        </div>
 
-        <input type="radio" id="2" name="num_stars" value="2 Stars">
-        <label for="2">2 Stars</label><br>
+        <div class="col">
+            <div class="container bg-light">
+                <h3>Who's on Aux</h3>
+                <form>
+                    <label for="who">Who's on Aux?</label>
+                    <input type="checkbox" id="who"><br>
 
-        <input type="radio" id="3" name="num_stars" value="3 Stars">
-        <label for="3">3 Stars</label><br>
+                    <p>How many stars?</p>
+                    <input type="radio" id="1" name="num_stars" value="1 Star">
+                    <label for="1">1 Star</label><br>
 
-        <input type="radio" id="4" name="num_stars" value="4 Stars">
-        <label for="4">4 Stars</label><br>
+                    <input type="radio" id="2" name="num_stars" value="2 Stars">
+                    <label for="2">2 Stars</label><br>
 
-        <input type="radio" id="5" name="num_stars" value="5 Stars">
-        <label for="5">5 Stars</label><br>
+                    <input type="radio" id="3" name="num_stars" value="3 Stars">
+                    <label for="3">3 Stars</label><br>
 
-        <label for="who">Who's on Aux?</label>
-        <input type="checkbox" id="who"><br>
+                    <input type="radio" id="4" name="num_stars" value="4 Stars">
+                    <label for="4">4 Stars</label><br>
 
-        <input type="submit" value="Submit">
-    </form>
+                    <input type="radio" id="5" name="num_stars" value="5 Stars">
+                    <label for="5">5 Stars</label><br>
+
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container bg-light">
+        <h2>Add songs / songs added</h2>
+    </div>
+
+
+
 {% endblock %}

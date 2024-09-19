@@ -5,8 +5,20 @@
 {% endblock %}
 
 
-{% block content %}
-    <h1>USER HOME</h1>
-    <h2>Hosting</h2>
-    <h2>Attending</h2>
+{% block content %} <!-- inside container-fluid -->
+    <h1 class="text-light">USER HOME</h1>
+    <div class="row">
+        <div class="col">
+            <div class="container p-5 my-5 bg-light text-center">
+                <h2>Hosting</h2>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="container p-5 my-5 bg-light text-center">
+                <h2>Attending</h2>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
