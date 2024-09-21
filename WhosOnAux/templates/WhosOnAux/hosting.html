@@ -6,10 +6,18 @@
 
 
 {% block content %}
-    <h1>Hosting</h1>
-    <ul>
-        {% for x in hosting_parties %}
-            <li>{{x.name}}</li>
-        {% endfor %}
-    </ul>
+    <div class="row">
+        <div class="container bg-dark text-light">
+            <h1>Hosting</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container bg-dark text-light">
+            <ul>
+                {% for x in hosting_parties %}
+                    <li>{{x.name}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 {% endblock %}

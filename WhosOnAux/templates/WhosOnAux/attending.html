@@ -6,5 +6,18 @@
 
 
 {% block content %}
-  <h1>ATTENDING</h1>
+    <div class="row">
+        <div class="container bg-dark text-light">
+            <h1>Attending</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container bg-dark text-light">
+            <ul>
+                {% for x in attending_parties %}
+                    <li>{{x.name}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 {% endblock %}

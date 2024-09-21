@@ -52,6 +52,12 @@ class Playlist(models.Model):
     track_ID = models.CharField(max_length=200)    # spotify_id
     added_by = models.IntegerField(default=0)      # user_id
     # added_date = models.DateTimeField("added date") # TODO: error message, needs default value
-
     def __str__(self):
         return self.name
+
+
+class Attendees(models.Model):
+    party_id = models.ForeignKey(Party, on_delete=models.CASCADE)   # party_id
+    attendee = models.IntegerField()                                # user_id
+
+
