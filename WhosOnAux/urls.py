@@ -5,15 +5,15 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("", views.index, name="index"),
-path("<int:question_id>/", views.detail, name="detail"),
-    # ex: /polls/5/results/
-    path("<int:question_id>/results/", views.results, name="results"),
-    # ex: /polls/5/vote/
-    path("<int:question_id>/vote/", views.vote, name="vote"),
+    path("", views.landing, name="landing"),
     path("<int:user_id>/attending/", views.attending, name="attending"),
+    # ex: /001/attending/
     path("<int:user_id>/home/", views.user_home, name="user_home"),
+    # ex: /001/home/
     path("<int:user_id>/attending/<int:party_id>", views.party, name="party"),
-    path("<int:user_id>/hosting/", views.hosting, name="hosting"),
+    # ex: /001/attending/001/
+    path("<int:user_id>/hosting", views.hosting, name="hosting"),
+    # ex: /001/hosting
     path("<int:user_id>/dashboard/<int:party_id>", views.dashboard, name="dashboard"),
+    # ex: /001/dashboard/001
 ]
