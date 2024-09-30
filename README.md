@@ -5,6 +5,16 @@ before the party starts and then guess who added each song as it plays at the pa
 
 The point of the game is to have the most correct guesses about who added which song(s)
 
+## About the project
+Who's on Aux is a personal project that I came up with as a chance to building my full stack skills --
+of course I also think it will be a fun game to play with my friends at parties!
+
+It has a python backend built with django. At the time of writing this, the front end is HTML + Bootstrap 5.
+I'm hoping use the project to learn JavaScript to make the front-end more dynamic 
+once the basic structure is in place.
+
+It also uses the spotify API to manage the playlists.
+
 ## Getting started
 After cloning this repo, you'll need to add and configure some files to get started
 
