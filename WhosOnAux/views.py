@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.template import loader
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render
-
+from django.contrib.auth.models import User
 
 from .models import Party
 from .models import Attendees
@@ -22,10 +22,9 @@ def user_home(request, user_id):
 def attending(request, user_id):
     # TODO: 404 if user does not exist
     # TODO: FIX THIS -- error loading parties -- something wrong with query
-    # could also be something wrong with the model -- no __str__ attr
-    # attending_query_set = Attendees.objects.filter(attendee=user_id)                # <class 'django.db.models.query.QuerySet'>
-    # parties = [str(Party.objects.get(party_id=query.party_id)) for query in attending_query_set]
-    parties = Attendees.objects.filter(attendee=user_id)
+    # i think error is because there are no users in the database
+    user = User.objects.get(id=user_id)
+    parties = Attendees.objects.filter(attendee=user)
     context = {
         "user_id": user_id,
         "attending_parties": parties

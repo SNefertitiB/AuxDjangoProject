@@ -16,6 +16,8 @@
             <ul>
                 {% for x in attending_parties %}
                     <li>{{x.name}}</li>
+                {% empty %}
+                    <li>Not attending any parties</li>
                 {% endfor %}
             </ul>
         </div>

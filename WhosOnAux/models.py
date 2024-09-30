@@ -2,7 +2,7 @@ import datetime
 
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
+
 # Create your models here.
 # class ClassName(models.Model):
 #    class_name_text = models.FieldType(kwargs=value)
