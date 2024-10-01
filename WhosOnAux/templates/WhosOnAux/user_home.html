@@ -6,21 +6,27 @@
 
 
 {% block content %} <!-- inside container-fluid -->
-    <h1 class="text-light">USER HOME</h1>
-    <div class="row">
-        <div class="col">
-            <div class="container p-5 my-5 bg-light text-center position-relative">
-                <h2>Hosting</h2>
-                <a href="/{{ user_id }}/hosting" class="stretched-link"></a>
+    {% if user.is_authenticated %}
+        <h1 class="text-light">USER HOME</h1>
+        <div class="row">
+            <div class="col">
+                <div class="container p-5 my-5 bg-light text-center position-relative">
+                    <h2>Hosting</h2>
+                    <a href="/hosting" class="stretched-link"></a>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="container p-5 my-5 bg-light text-center position-relative">
+                    <h2>Attending</h2>
+                    <a href="/attending" class="stretched-link"></a>
+                </div>
             </div>
         </div>
-
-        <div class="col">
-            <div class="container p-5 my-5 bg-light text-center position-relative">
-                <h2>Attending</h2>
-                <a href="/{{ user_id }}/attending" class="stretched-link"></a>
-            </div>
+    {% else %}
+        <div class="row">
+            <p>You are not logged in</p>
+            <a href="{% url 'login' %}">Log in</a>
         </div>
-    </div>
-
+    {%  endif %}
 {% endblock %}

@@ -14,31 +14,41 @@ def landing(request):
     return render(request, "WhosOnAux/landing.html")
 
 
-def user_home(request, user_id):
+def user_home(request):
     # TODO: 404 if user does not exist
-    return render(request, "WhosOnAux/user_home.html", {"user_id": user_id})
+    # TODO: get user_id from authorization
+    context = {'user_id': None}
+    if request.user.is_authenticated:
+        user_id = request.user.id
+        context['user_id'] = user_id
+
+    return render(request, "WhosOnAux/user_home.html", context)
 
 
-def attending(request, user_id):
+def attending(request):
     # TODO: 404 if user does not exist
     # TODO: FIX THIS -- error loading parties -- something wrong with query
     # i think error is because there are no users in the database
-    user = User.objects.get(id=user_id)
+    user = request.user
+    user_id = user.id
     parties = Attendees.objects.filter(attendee=user)
     context = {
         "user_id": user_id,
-        "attending_parties": parties
+        "attending_parties": parties,
     }
     template = loader.get_template("WhosOnAux/attending.html")
     return HttpResponse(template.render(context, request))
 
 
 def party(request, user_id, party_id):
+    # TODO: get user from rest.user
+    # TODO: confirm user has access to party
     return render(request, "WhosOnAux/party.html", {"user_id": user_id, "party_id": party_id})
 
 
-def hosting(request, user_id):
+def hosting(request):
     #TODO: 404 if user does not exist
+    user_id = request.user.id
     parties = Party.objects.filter(host_id=user_id)                # <class 'django.db.models.query.QuerySet'>
     template = loader.get_template("WhosOnAux/hosting.html")
     context = {
@@ -48,5 +58,7 @@ def hosting(request, user_id):
     return HttpResponse(template.render(context, request))
 
 
-def dashboard(request, user_id, party_id):
-    return render(request, "WhosOnAux/party_dashboard.html", {"user_id": user_id, "party_id": party_id})
+def dashboard(request, party_id):
+    context = {"user_id": request.user.id,
+               "party_id": party_id}
+    return render(request, "WhosOnAux/party_dashboard.html", context)
