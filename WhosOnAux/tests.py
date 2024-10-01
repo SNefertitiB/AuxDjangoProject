@@ -40,3 +40,9 @@ class URLsTests(TestCase):
         party = Party.objects.create(host=user, name="TestParty")
         response = client.get(f"/{user.id}/dashboard/{party.party_id}")
         self.assertEqual(response.status_code, 200)
+
+# TODO: add tests
+# TODO: home test user authenticated / not authenticated
+# TODO: Host tests user authenticated / not authenticated
+# TODO: Attending tests user authenticated / not authnticated
+# TODO: Login tests
