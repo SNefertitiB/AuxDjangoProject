@@ -32,10 +32,12 @@
                     <a class="nav-link" href="/attending/">Attending</a>
                 </li>
             </ul>
-            <form action="{% url 'logout' %}" method="post">
-              {% csrf_token %}
-              <button type="submit">Log Out</button>
-            </form>
+            {% if user.is_authenticated %}
+                <form action="{% url 'logout' %}" method="post">
+                  {% csrf_token %}
+                  <button type="submit">Log Out</button>
+                </form>
+            {% endif %}
         </div>
 
     </nav>
