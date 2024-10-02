@@ -19,6 +19,7 @@ from django.urls import include, path
 
 urlpatterns = [
     path("", include("WhosOnAux.urls")),
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
+    path("accounts/", include("accounts.urls")),  # before auth accounts b/c django looks up patters top-to-bottom
     path("accounts/", include("django.contrib.auth.urls")),
 ]
