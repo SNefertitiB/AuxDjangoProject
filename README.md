@@ -3,10 +3,10 @@
 Who's on aux is a party game where guests get to add songs to the party playlist 
 before the party starts and then guess who added each song as it plays at the party.
 
-The point of the game is to have the most correct guesses about who added which song(s)
+The point of the game is to have the most correct guesses about who added which song(s).
 
 ## About the project
-Who's on Aux is a personal project that I came up with as a chance to building my full stack skills --
+Who's on Aux is a personal project that I came up with as a chance to show off and develop my full stack skills --
 of course I also think it will be a fun game to play with my friends at parties!
 
 It has a python backend built with django. At the time of writing this, the front end is HTML + Bootstrap 5.
@@ -15,10 +15,10 @@ once the basic structure is in place.
 
 It also uses the spotify API to manage the playlists.
 
-## Getting started
+# Getting started
 After cloning this repo, you'll need to add and configure some files to get started
 
-### Set up your virtual environment
+## Set up your virtual environment
 
 Creat a new virtual environment
 
@@ -35,7 +35,7 @@ install packages
 
 ```pip install -r requirements.txt```
 
-### Create and configure the .env file
+## Create and configure the .env file
 
 create the .env file
 
@@ -64,16 +64,16 @@ Take the generated code and add it to the .env file
 
 ```SECRET_KEY = <generated code>```
 
-### Create the databases
+## Create the databases
 
 run the following line in the terminal
 
 ```python manage.py migrate```
 
-### Sanity check
+## Sanity check
 
 run the following in the terminal to start the development server.
 
 ```python manage.py runserver```
 
-And then visit [this link](http://127.0.0.1:8000/WhosOnAux/) -- it should take you to the home page
+And then visit [this link](http://127.0.0.1:8000/WhosOnAux/) -- it should take you to the landing page
