@@ -1,7 +1,19 @@
 <!-- templates/registration/login.html -->
-<h2>Log In</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form }}
-  <button type="submit">Log In</button>
-</form>
+{% extends 'registration/registration_primary.html' %}
+
+{% block title %}
+  Login
+{% endblock %}
+
+{% block content %} <!-- inside container-fluid -->
+
+    <h2>Log In</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Log In</button>
+    </form>
+    
+    <p>No account yet?</p>
+    <a href="/accounts/signup">Sign up here</a>
+{% endblock %}

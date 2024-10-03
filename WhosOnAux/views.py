@@ -59,6 +59,8 @@ def hosting(request):
 
 
 def dashboard(request, party_id):
+    party = Party.objects.get(party_id=party_id)
     context = {"user_id": request.user.id,
-               "party_id": party_id}
+               "party_id": party_id,
+               "party_name": party.name}
     return render(request, "WhosOnAux/party_dashboard.html", context)

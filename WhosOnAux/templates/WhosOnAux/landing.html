@@ -5,11 +5,14 @@
     <title>WhosOnAux</title>
 </head>
 <body>
+    {% if user.is_authenticated %}
+        <a href="/home">Log in</a>
+    {% else %}
+        <a href="/accounts/login">Log in</a>
+    {% endif %}
     <h1>About Who's on Aux</h1>
     <h1>How to play</h1>
-    <h1> Lets get started!</h1>
-    <p>Log in</p>
-    <p>Make an account</p>
+    <h1> Let's get started!</h1>
     <h1>Ask us</h1>
 </body>
 </html>

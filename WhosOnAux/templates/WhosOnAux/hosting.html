@@ -15,9 +15,10 @@
         <div class="container bg-dark text-light">
             <ul>
                 {% for x in hosting_parties %}
-                    <li>{{x.name}}</li>
+                    <a href="/dashboard/{{x.party_id}}">{{x.name}}</a>
+                    <p></p>
                 {% empty %}
-                    <li>Not hosting any parties</li>
+                    <p>Not hosting any parties</p>
                 {% endfor %}
             </ul>
         </div>
