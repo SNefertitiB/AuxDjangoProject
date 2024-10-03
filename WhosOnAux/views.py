@@ -40,10 +40,16 @@ def attending(request):
     return HttpResponse(template.render(context, request))
 
 
-def party(request, user_id, party_id):
+def party(request, party_id):
     # TODO: get user from rest.user
     # TODO: confirm user has access to party
-    return render(request, "WhosOnAux/party.html", {"user_id": user_id, "party_id": party_id})
+    template = loader.get_template("WhosOnAux/party.html")
+    party = Party.objects.get(party_id=party_id)
+    context = {"party_id": party_id,
+               "party_name": party.name,
+               "description": party.description,
+               }
+    return HttpResponse(template.render(context, request))
 
 
 def hosting(request):

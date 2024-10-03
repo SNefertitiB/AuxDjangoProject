@@ -7,21 +7,21 @@
 
 {% block content %}
     <div class="row">
-        <div class="container bg-light">
-            <h1>Party Name</h1>
-            <p>Party Descripton</p>
+        <div>
+            <h1>{{party_name}}</h1>
+            <p>{{ party_description}}</p>
         </div>
     </div>
 
     <div class="row">
         <div class="col">
-            <div class="container bg-light">
+            <div class="container">
                 <h2>Current song</h2>
             </div>
         </div>
 
         <div class="col">
-            <div class="container bg-light">
+            <div class="container">
                 <h3>Who's on Aux</h3>
                 <form>
                     <label for="who">Who's on Aux?</label>
@@ -49,10 +49,12 @@
         </div>
 
     </div>
-
-    <div class="container bg-light">
-        <h2>Add songs / songs added</h2>
+    <div class="row">
+        <div class="container">
+            <h2>Add songs / songs added</h2>
+        </div>
     </div>
+
 
 
 
