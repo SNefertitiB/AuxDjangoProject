@@ -45,6 +45,17 @@ class Playlist(models.Model):
 
 
 # class Attendees(models.Model):
-#     party_id = models.ForeignKey(Party, on_delete=models.CASCADE)     # party_id
+#     party = models.ForeignKey(Party, on_delete=models.CASCADE)        # Party
 #     attendee = models.ForeignKey(User, on_delete=models.CASCADE)      # User
+#     NO_RESPONSE = "NR"
+#     YES = "Y"
+#     NO = "N"
+#     MAYBE = "M"
+#     STATUS_CHOICES = {
+#                 NO_RESPONSE: "No response",
+#                 YES: "Yes",
+#                 NO: "No",
+#                 MAYBE: "Maybe"
+#     }
+#     status = models.CharField(max_length=12, choices=STATUS_CHOICES, default=NO_RESPONSE)
 
