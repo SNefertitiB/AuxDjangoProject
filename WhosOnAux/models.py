@@ -44,7 +44,7 @@ class Playlist(models.Model):
         return self.name
 
 
-class Attendees(models.Model):
-    party_id = models.ForeignKey(Party, on_delete=models.CASCADE)     # party_id
-    attendee = models.ForeignKey(User, on_delete=models.CASCADE)      # User
+# class Attendees(models.Model):
+#     party_id = models.ForeignKey(Party, on_delete=models.CASCADE)     # party_id
+#     attendee = models.ForeignKey(User, on_delete=models.CASCADE)      # User
 

@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.models import User
 
 from .models import Party
-from .models import Attendees
+# from .models import Attendees
 
 # Create your views here.
 
@@ -27,11 +27,11 @@ def user_home(request):
 
 def attending(request):
     # TODO: 404 if user does not exist
-    # TODO: FIX THIS -- error loading parties -- something wrong with query
     # i think error is because there are no users in the database
     user = request.user
     user_id = user.id
-    parties = Attendees.objects.filter(attendee=user)
+    # TODO: only show parties that user is attending
+    parties = Party.objects.all()
     context = {
         "user_id": user_id,
         "attending_parties": parties,
