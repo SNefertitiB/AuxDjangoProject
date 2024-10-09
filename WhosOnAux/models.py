@@ -14,7 +14,6 @@ from django.contrib.auth.models import User
 #     user = models.OneToOneField(User, on_delete=models.CASCADE)
 #     # user_ID = models.AutoField(primary_key=True)
 
-
 class Party(models.Model):
     host = models.ForeignKey(User, on_delete=models.CASCADE)
     party_id = models.AutoField(primary_key=True)
@@ -43,19 +42,19 @@ class Playlist(models.Model):
     def __str__(self):
         return self.name
 
+class Attending(models.Model):
+    party = models.ForeignKey(Party, on_delete=models.CASCADE)        # Party
+    attendee = models.ForeignKey(User, on_delete=models.CASCADE)      # User
+    NO_RESPONSE = "NR"
+    YES = "Y"
+    NO = "N"
+    MAYBE = "M"
+    STATUS_CHOICES = {
+                NO_RESPONSE: "No response",
+                YES: "Yes",
+                NO: "No",
+                MAYBE: "Maybe"
+    }
+    status = models.CharField(max_length=12, choices=STATUS_CHOICES, default=NO_RESPONSE)
 
-# class Attendees(models.Model):
-#     party = models.ForeignKey(Party, on_delete=models.CASCADE)        # Party
-#     attendee = models.ForeignKey(User, on_delete=models.CASCADE)      # User
-#     NO_RESPONSE = "NR"
-#     YES = "Y"
-#     NO = "N"
-#     MAYBE = "M"
-#     STATUS_CHOICES = {
-#                 NO_RESPONSE: "No response",
-#                 YES: "Yes",
-#                 NO: "No",
-#                 MAYBE: "Maybe"
-#     }
-#     status = models.CharField(max_length=12, choices=STATUS_CHOICES, default=NO_RESPONSE)
 
