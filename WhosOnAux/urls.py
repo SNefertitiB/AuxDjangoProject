@@ -14,6 +14,8 @@ urlpatterns = [
     # ex: /attending/001
     path("hosting/", views.hosting, name="hosting"),
     # ex: /hosting/
+    path("create_new_party/", views.create_new_party, name="create_new_party"),
+    # ex: /create_new_party/
     path("dashboard/<int:party_id>", views.dashboard, name="dashboard"),
     # ex: /dashboard/001
 ]

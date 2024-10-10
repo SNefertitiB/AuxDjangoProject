@@ -1,10 +1,12 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 from .models import Party
+from .forms import NewPartyForm
 # from .models import Attendees
 
 # Create your views here.
@@ -63,6 +65,16 @@ def hosting(request):
     }
     return HttpResponse(template.render(context, request))
 
+def create_new_party(request):
+    form = NewPartyForm(request.POST)
+    if form.is_valid():
+        host = request.user
+        name = form.cleaned_data["party_name"]
+        # TODO: date =
+        description = form.cleaned_data["description"]
+        new_party = Party(host=host, name=name, description=description)
+        new_party.save()
+        return post_redirect(request, redirect_to=reverse("/hosting/"), include_csrf=True)
 
 def dashboard(request, party_id):
     party = Party.objects.get(party_id=party_id)
