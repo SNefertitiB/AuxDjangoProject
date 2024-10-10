@@ -6,27 +6,36 @@
 
 
 {% block content %} <!-- inside container-fluid -->
+
     {% if user.is_authenticated %}
         <h1 class="text-light">{{user.username}}</h1>
-        <div class="row">
+        <div class="row text-dark">
             <div class="col">
-                <div class="container p-5 my-5 bg-light text-center position-relative">
-                    <h2>Hosting</h2>
-                    <a href="/hosting" class="stretched-link"></a>
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h2>Hosting</h2>
+                        <a href="/hosting" class="stretched-link"></a>
+                    </div>
                 </div>
+
             </div>
 
             <div class="col">
-                <div class="container p-5 my-5 bg-light text-center position-relative">
-                    <h2>Attending</h2>
-                    <a href="/attending" class="stretched-link"></a>
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h2>Attending</h2>
+                        <a href="/attending" class="stretched-link"></a>
+                    </div>
                 </div>
             </div>
         </div>
+
     {% else %}
+        <!-- If user is not authenticated go to log in -->
         <div class="row">
             <p class="text-light">You are not logged in</p>
             <a href="{% url 'login' %}">Log in</a>
         </div>
     {%  endif %}
+
 {% endblock %}

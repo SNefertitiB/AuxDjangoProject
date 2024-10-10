@@ -12,11 +12,53 @@
         </div>
     </div>
     <div class="row">
+        <div class="container">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#new_party">
+                Create new party
+            </button>
+        </div>
+
+        <!-- New Party modal -->
+        <div class="modal text-dark" id="new_party">
+            <div class="modal-dialog modal-lg">   <!-- make medium or large? -->
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h4 class="modal-tittle">New Party</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form action="#">
+                            <!-- name -->
+                            <label for="party_name">Party Name:</label>
+                            <input type="text" class="form-control" id="party_name" placeholder="Name your party" name="party_name">
+                            <!-- date -->
+                            <!-- description -->
+                            <label for="description">Description:</label>
+                            <textarea class="form-control" rows="5" id="description" name="description"></textarea>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Party Cards -->
         <div class="container bg-dark text-light">
             <ul>
                 {% for x in hosting_parties %}
-                    <a href="/dashboard/{{x.party_id}}">{{x.name}}</a>
-                    <p></p>
+                    <!-- Cards -->
+                    <div class="card" style="width:400px">
+                        <img class="card-img-top" src="Spotify_App_Logo.svg" alt="{{ x.name }} thumbnail" style="width:100%">
+                        <div class="card-body">
+                            <h4 class="card-title">{{x.name}}</h4>
+                            <p class="card-text">{{x.description}}</p>
+                            <a href="/dashboard/{{x.party_id}}" class="btn btn-primary">{{x.name}} Dashboard</a>
+                        </div>
                 {% empty %}
                     <p>Not hosting any parties</p>
                 {% endfor %}
