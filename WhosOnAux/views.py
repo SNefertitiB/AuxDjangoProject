@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.http import Http404
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.models import User
 from django.urls import reverse
 
@@ -74,7 +74,10 @@ def create_new_party(request):
         description = form.cleaned_data["description"]
         new_party = Party(host=host, name=name, description=description)
         new_party.save()
-        return post_redirect(request, redirect_to=reverse("/hosting/"), include_csrf=True)
+        # TODO: fix redirect when trying to create new party (requires csrf token)
+        return redirect("hosting")
+    else:
+        raise Http404('invalid form!')
 
 def dashboard(request, party_id):
     party = Party.objects.get(party_id=party_id)

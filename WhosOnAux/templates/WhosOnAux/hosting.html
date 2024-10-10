@@ -29,7 +29,7 @@
                     </div>
 
                     <div class="modal-body">
-                        <form action="/create_new_party/" method="POST">
+                        <form action="/create_new_party/" method="POST">{% csrf_token %}
                             <!-- name -->
                             <label for="party_name">Party Name:</label>
                             <input type="text" class="form-control" id="party_name" placeholder="Name your party" name="party_name">
