@@ -21,6 +21,7 @@ class URLsTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_user_home_url_authenticated(self):
+        # TODO: not showing up in coverage>
         user = User.objects.create(username="Testuser")
         self.client.force_login(user)
         response = client.get(f"/home/")
@@ -83,7 +84,6 @@ class ModelsTests(TestCase):
         self.assertTrue(party.name == "TestParty")
 
     def test_party_get_str(self):
-        # TODO: fails
         user = User.objects.create(username="Testuser")
         party = Party(host=user, name="TestParty")
         self.assertTrue(str(party) == "TestParty")
@@ -94,7 +94,6 @@ class ModelsTests(TestCase):
         self.assertTrue(song.name == "TestPlaylist")
 
     def test_playlist_get_str(self):
-        # TODO: Fails
         user = User.objects.create(username="Testuser")
         song = Playlist(name="TestPlaylist", added_by=user)
         self.assertTrue(str(song) == "TestPlaylist")
