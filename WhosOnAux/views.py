@@ -2,12 +2,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render, redirect
-from django.contrib.auth.models import User
-from django.urls import reverse
+# from django.urls import reverse
 
 from .models import Party
 from .forms import NewPartyForm
-# from .models import Attendees
 
 # Create your views here.
 
