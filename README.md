@@ -1,3 +1,5 @@
+![Coveralls](https://img.shields.io/coverallsCoverage/github/SNefertitiB/AuxDjangoProject)
+
 # Who's on Aux?
 
 Who's on aux is a party game where guests get to add songs to the party playlist 
