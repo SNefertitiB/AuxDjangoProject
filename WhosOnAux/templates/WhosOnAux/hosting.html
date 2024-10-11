@@ -50,20 +50,19 @@
 
         <!-- Party Cards -->
         <div class="container bg-dark text-light">
-            <ul>
-                {% for x in hosting_parties %}
-                    <!-- Cards -->
-                    <div class="card" style="width:400px">
-                        <img class="card-img-top" src="Spotify_App_Logo.svg" alt="{{ x.name }} thumbnail" style="width:100%">
-                        <div class="card-body">
-                            <h4 class="card-title">{{x.name}}</h4>
-                            <p class="card-text">{{x.description}}</p>
-                            <a href="/dashboard/{{x.party_id}}" class="btn btn-primary">{{x.name}} Dashboard</a>
-                        </div>
-                {% empty %}
-                    <p>Not hosting any parties</p>
-                {% endfor %}
-            </ul>
+            {% for x in hosting_parties %}
+                <!-- Cards -->
+                <div class="card" style="width:400px">
+                    <img class="card-img-top" src="once_more_with_feeling.jpg" alt="{{ x.name }} thumbnail" style="width:100%">
+                    <div class="card-body">
+                        <h4 class="card-title">{{x.name}}</h4>
+                        <p class="card-text">{{x.description}}</p>
+                        <a href="/dashboard/{{x.id}}" class="btn btn-primary">{{x.name}} Dashboard</a>
+                    </div>
+                </div>
+            {% empty %}
+                <p>Not hosting any parties</p>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

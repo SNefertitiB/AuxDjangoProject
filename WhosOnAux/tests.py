@@ -44,13 +44,13 @@ class URLsTests(TestCase):
     def test_attending_party_url(self):
         user = User.objects.create(username="Testuser")
         party = Party.objects.create(host=user, name="TestParty")
-        response = client.get(f"/attending/{party.party_id}")
+        response = client.get(f"/attending/{party.id}")
         self.assertEqual(response.status_code, 200)
 
     def test_party_dashboard_url(self):
         user = User.objects.create(username="Testuser")
         party = Party.objects.create(host=user, name="TestParty")
-        response = client.get(f"/dashboard/{party.party_id}")
+        response = client.get(f"/dashboard/{party.id}")
         self.assertEqual(response.status_code, 200)
 
 
@@ -61,6 +61,7 @@ class NewPartyFormTests(TestCase):
         form_data = {"party_name": name, "description": description}
         form = NewPartyForm(data=form_data)
         self.assertTrue(form.is_valid())
+
 
 # TODO: add tests
 # TODO: home test user authenticated / not authenticated

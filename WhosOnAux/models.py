@@ -16,7 +16,6 @@ from django.contrib.auth.models import User
 
 class Party(models.Model):
     host = models.ForeignKey(User, on_delete=models.CASCADE)
-    party_id = models.AutoField(primary_key=True)
     playlist_id = models.IntegerField(default=0)
     name = models.CharField(max_length=200)
     # date = models.DateTimeField("event date")  # TODO: error message, needs default value
@@ -24,6 +23,7 @@ class Party(models.Model):
 
     def __str__(self):
         return self.name
+
 
 
 class Playlist(models.Model):

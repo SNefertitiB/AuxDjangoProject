@@ -46,7 +46,7 @@ def party(request, party_id):
     # TODO: get user from rest.user
     # TODO: confirm user has access to party
     template = loader.get_template("WhosOnAux/party.html")
-    party = Party.objects.get(party_id=party_id)
+    party = Party.objects.get(id=party_id)
     context = {"party_id": party_id,
                "party_name": party.name,
                "description": party.description,
@@ -80,7 +80,7 @@ def create_new_party(request):
         raise Http404('invalid form!')
 
 def dashboard(request, party_id):
-    party = Party.objects.get(party_id=party_id)
+    party = Party.objects.get(id=party_id)
     context = {"user_id": request.user.id,
                "party_id": party_id,
                "party_name": party.name}
