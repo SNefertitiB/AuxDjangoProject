@@ -29,7 +29,6 @@ jobs:
       env:
         DEBUG: ${{ secrets.DEBUG }}
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
-
       run: |
         python manage.py test
         
