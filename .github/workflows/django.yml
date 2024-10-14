@@ -30,5 +30,7 @@ jobs:
         DEBUG: ${{ secrets.DEBUG }}
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
       run: |
-        python manage.py test
+        coverage run --source='.' manage.py test
+        coverage html
+        COVERALLS_REPO_TOKEN=${{ secrets.COVERALLS_TOKEN }}
         
