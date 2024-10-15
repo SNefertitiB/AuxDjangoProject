@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render, redirect
+from django.core.mail import send_mail
 # from django.urls import reverse
 
 from .models import Party, Attending
@@ -42,9 +43,9 @@ def party(request, party_id):
     # TODO: confirm user has access to party
     template = loader.get_template("WhosOnAux/party.html")
     party = Party.objects.get(id=party_id)
-    context = {"party_id": party_id,
-               "party_name": party.name,
-               "description": party.description,
+    user = request.user
+    context = {"party": party,
+               "user": user,
                }
     return HttpResponse(template.render(context, request))
 
@@ -89,3 +90,19 @@ def dashboard(request, party_id):
                "no_response":invited.filter(status='NR'),
                }
     return render(request, "WhosOnAux/party_dashboard.html", context)
+
+
+def invite_guest(request):
+    form = NewPartyForm(request.POST)
+    if form.is_valid():
+        host = request.user
+        #  get email from form
+        # check if profile with email exists
+        # if not, create profile
+        # send email with link to create profile / accept invitation
+        subject = "XYZ invitd you to ABC Party"
+        message = " details of the invite with link to site"
+        sent_from = 'snb331@nyu.edu'    # TODO: should be updated
+        send_mail(subject, message, sent_from)
+
+        return None # TODO: update with redirect?

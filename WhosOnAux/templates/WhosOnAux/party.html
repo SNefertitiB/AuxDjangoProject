@@ -8,24 +8,24 @@
 {% block content %}
     <div class="row">
         <div>
-            <h1>{{party_name}}</h1>
-            <p>{{ party_description}}</p>
+            <h1>{{party.name}}</h1>
+            <p>{{ party.description}}</p>
         </div>
     </div>
 
     <div class="row">
-        <div class="col">
+        <div class="col-sm">
             <div class="container">
                 <h2>Current song</h2>
             </div>
         </div>
 
-        <div class="col">
+        <div class="col-sm">
             <div class="container">
                 <h3>Who's on Aux</h3>
                 <form>
                     <label for="who">Who's on Aux?</label>
-                    <input type="checkbox" id="who"><br>
+                    <input type="textbox" id="who"><br>
 
                     <p>How many stars?</p>
                     <input type="radio" id="1" name="num_stars" value="1 Star">
@@ -51,7 +51,7 @@
     </div>
     <div class="row">
         <div class="container">
-            <h2>Add songs / songs added</h2>
+            <h2 style="text-align:center">Add songs / songs added</h2>
         </div>
     </div>
 

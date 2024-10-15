@@ -15,7 +15,7 @@
         <div class="container bg-dark text-light">
             <ul>
                 {% for x in attending_parties %}
-                    <a href="/attending/{{ x.party_id }}">{{ x.name }}</a>
+                    <a href="/attending/{{ x.id }}">{{ x.name }}</a>
                     <p></p>
                 {% empty %}
                     <li>Not attending any parties</li>
