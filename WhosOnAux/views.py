@@ -4,7 +4,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404, render, redirect
 # from django.urls import reverse
 
-from .models import Party
+from .models import Party, Attending
 from .forms import NewPartyForm
 
 # Create your views here.
@@ -79,7 +79,14 @@ def create_new_party(request):
 
 def dashboard(request, party_id):
     party = Party.objects.get(id=party_id)
-    context = {"user_id": request.user.id,
-               "party_id": party_id,
-               "party_name": party.name}
+    host = request.user
+    invited = Attending.objects.filter(party=party)
+    context = {"party": party,
+               "host": host,
+               "invited":invited,
+               "yes":invited.filter(status='Y'),
+               "no":invited.filter(status='N'),
+               "maybe":invited.filter(status='M'),
+               "no_response":invited.filter(status='NR'),
+               }
     return render(request, "WhosOnAux/party_dashboard.html", context)

@@ -6,5 +6,51 @@
 
 
 {% block content %}
-    <h1>{{ party_name }}</h1>
+    <h1 style="text-align:center">{{ party.name }} Dashboard</h1>
+    <p>{{ party.description }}</p>
+    <div class="row">
+        <!-- left column -->
+        <div class="col-sm-6">
+            <h2>Invite guest</h2>
+            <form>
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+            <!--Guest list -->
+            <h2 style="text-align:center">Guests</h2>
+            <div class="row">
+                <div class="col-sm">
+                    <h3>Attending</h3>
+                    {% for guest in yes %}
+                        <p>{{ guest.attendee }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="col-sm">
+                    <h3>Maybe</h3>
+                    {% for guest in maybe %}
+                        <p>{{ guest.attendee }}</p>
+                    {% endfor %}
+                </div>
+                <div class="col-sm">
+                    <h3>No</h3>
+                    {% for guest in no %}
+                        <p>{{ guest.attendee }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <h3>Awaiting </h3>
+            {% for guest in no_response %}
+                <p>{{ guest.attendee }}</p>
+            {% endfor %}
+        </div>
+
+        <!-- right column -->
+        <div class="col-sm-6">
+            <h2 style="text-align:center">Songs</h2>
+        </div>
+    </div>
 {% endblock %}
