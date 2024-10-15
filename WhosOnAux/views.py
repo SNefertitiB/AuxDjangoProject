@@ -8,21 +8,18 @@ from .models import Party, Attending
 from .forms import NewPartyForm
 
 # Create your views here.
-
-
 def landing(request):
     return render(request, "WhosOnAux/landing.html")
 
 
 def user_home(request):
-    # TODO: 404 if user does not exist
-    # TODO: get user_id from authorization
     context = {'user_id': None}
     if request.user.is_authenticated:
         user_id = request.user.id
         context['user_id'] = user_id
-
-    return render(request, "WhosOnAux/user_home.html", context)
+        return render(request, "WhosOnAux/user_home.html", context)
+    else:
+        return redirect("landing")
 
 
 def attending(request):
@@ -41,7 +38,7 @@ def attending(request):
 
 
 def party(request, party_id):
-    # TODO: get user from rest.user
+    # TODO: get user from request.user
     # TODO: confirm user has access to party
     template = loader.get_template("WhosOnAux/party.html")
     party = Party.objects.get(id=party_id)
@@ -53,7 +50,7 @@ def party(request, party_id):
 
 
 def hosting(request):
-    #TODO: 404 if user does not exist
+    #TODO: redirect if user not logged in
     user_id = request.user.id
     parties = Party.objects.filter(host_id=user_id)                # <class 'django.db.models.query.QuerySet'>
     template = loader.get_template("WhosOnAux/hosting.html")
@@ -78,6 +75,8 @@ def create_new_party(request):
         raise Http404('invalid form!')
 
 def dashboard(request, party_id):
+    # TODO: re-direct if user not logged in
+    # TODO: re-direct if user is not host
     party = Party.objects.get(id=party_id)
     host = request.user
     invited = Attending.objects.filter(party=party)

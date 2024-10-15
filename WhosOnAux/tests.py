@@ -21,11 +21,14 @@ class URLsTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_user_home_url_authenticated(self):
-        # TODO: not showing up in coverage>
         user = User.objects.create(username="Testuser")
         self.client.force_login(user)
-        response = client.get(f"/home/")
-        self.assertEqual(response.status_code, 200)
+        response = self.client.get(f"/home/")
+        self.assertEqual(response.status_code, OK_200)
+
+    def test_user_home_url_not_authenticated(self):
+        response = self.client.get(f"/home/")
+        self.assertEqual(response.status_code, REDIRECT_302)
 
     def test_user_hosting_url(self):
         user = User.objects.create(username="Testuser")
