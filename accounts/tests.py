@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.test import Client
 from django.contrib.auth.models import User
+from django.contrib.messages import get_messages
 from django.urls import reverse
 
 # Create your tests here.
@@ -47,10 +48,14 @@ class ViewsTests(TestCase):
         response = self.client.post(reverse("signup"), form_data)
         self.assertEqual(User.objects.count(), 1)
         self.assertEqual(response.status_code, 200)
+        messages = list(get_messages(response.wsgi_request))
+        # self.assertEqual(len(messages), 1)   # TODO: work on these message based assertions
+        # self.assertEqual(str(messages[1]), 'An account with that username already exists. Please log in or sign up with a different username')
+
 
     def test_signup_email_taken(self):
         """
-        test user already exists with username
+        test user already exists with email
         verify no new user is created
         status code 200 (reload sign up page)
         :return:None

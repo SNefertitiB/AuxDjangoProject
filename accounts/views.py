@@ -32,7 +32,7 @@ def signup(request):
                                'An account with that email already exists. Please log in or sign up with a different email')
         else:
             attempted_username = form.cleaned_data.get('username')
-            if User.objects.filter(username=attempted_username):
+            if User.objects.filter(username=attempted_username).exists():
                 messages.error(request, 'An account with that username already exists. Please log in or sign up with a different username')
             messages.error(request, 'invalid registration details')
 
