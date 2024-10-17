@@ -9,9 +9,30 @@
     <a href="/accounts/login">Log in here</a>
     
     <h2>Sign up</h2>
-    <form method="post">
+    <form method="post" action=".">
         {% csrf_token %}
-        {{ form }}
+    
+        <div class="input-group">
+            <label for="username">Username: </label>
+            {{ form.username }}
+        </div>
+        
+        <div class="input-group">
+            <label for="email">Email: </label>
+            {{ form.email }}
+        </div>
+
+        <div>
+            <label for="password1">Create password: </label>
+            {{ form.password1 }}
+        </div>
+
+        <div>
+            <label for="password2">Confirm password: </label>
+            {{ form.password2 }}
+            {{ form.password2.errors }}
+        </div>
+
         <button type="submit">Sign Up</button>
     </form>
 {% endblock %}

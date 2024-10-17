@@ -101,7 +101,7 @@ def invite_guest(request):
         # if not, create profile
         # send email with link to create profile / accept invitation
         subject = "XYZ invitd you to ABC Party"
-        message = " details of the invite with link to site"
+        message = f"{host} has invited you to a party. Details of the invite with link to site"
         sent_from = 'snb331@nyu.edu'    # TODO: should be updated
         send_mail(subject, message, sent_from)
 
