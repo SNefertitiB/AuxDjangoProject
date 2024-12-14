@@ -6,3 +6,6 @@ db.sqlite3
 #coverage files
 .coverage
 htmlcov
+
+#database dumps
+users.json

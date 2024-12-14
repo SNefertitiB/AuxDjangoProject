@@ -24,18 +24,20 @@ def user_home(request):
 
 
 def attending(request):
-    # TODO: 404 if user does not exist
-    # i think error is because there are no users in the database
-    user = request.user
-    user_id = user.id
-    # TODO: only show parties that user is attending
-    parties = Party.objects.all()
-    context = {
-        "user_id": user_id,
-        "attending_parties": parties,
-    }
-    template = loader.get_template("WhosOnAux/attending.html")
-    return HttpResponse(template.render(context, request))
+    if request.user.is_authenticated:
+        user = request.user
+        user_id = user.id
+        # TODO: only show parties that user is attending
+        parties = Party.objects.all()
+        context = {
+            "user_id": user_id,
+            "attending_parties": parties,
+        }
+        template = loader.get_template("WhosOnAux/attending.html")
+        return HttpResponse(template.render(context, request))
+
+    else:
+        return redirect("landing")
 
 
 def party(request, party_id):
@@ -51,15 +53,18 @@ def party(request, party_id):
 
 
 def hosting(request):
-    #TODO: redirect if user not logged in
-    user_id = request.user.id
-    parties = Party.objects.filter(host_id=user_id)                # <class 'django.db.models.query.QuerySet'>
-    template = loader.get_template("WhosOnAux/hosting.html")
-    context = {
-        "hosting_parties": parties,
-        "user_id": user_id
-    }
-    return HttpResponse(template.render(context, request))
+    if request.user.is_authenticated:
+        user_id = request.user.id
+        parties = Party.objects.filter(host_id=user_id)                # <class 'django.db.models.query.QuerySet'>
+        template = loader.get_template("WhosOnAux/hosting.html")
+        context = {
+            "hosting_parties": parties,
+            "user_id": user_id
+        }
+        return HttpResponse(template.render(context, request))
+
+    else:
+        return redirect("landing")
 
 def create_new_party(request):
     form = NewPartyForm(request.POST)
@@ -76,20 +81,23 @@ def create_new_party(request):
         raise Http404('invalid form!')
 
 def dashboard(request, party_id):
-    # TODO: re-direct if user not logged in
     # TODO: re-direct if user is not host
-    party = Party.objects.get(id=party_id)
-    host = request.user
-    invited = Attending.objects.filter(party=party)
-    context = {"party": party,
-               "host": host,
-               "invited":invited,
-               "yes":invited.filter(status='Y'),
-               "no":invited.filter(status='N'),
-               "maybe":invited.filter(status='M'),
-               "no_response":invited.filter(status='NR'),
-               }
-    return render(request, "WhosOnAux/party_dashboard.html", context)
+    if request.user.is_authenticated:
+        party = Party.objects.get(id=party_id)
+        host = request.user
+        invited = Attending.objects.filter(party=party)
+        context = {"party": party,
+                   "host": host,
+                   "invited":invited,
+                   "yes":invited.filter(status='Y'),
+                   "no":invited.filter(status='N'),
+                   "maybe":invited.filter(status='M'),
+                   "no_response":invited.filter(status='NR'),
+                   }
+        return render(request, "WhosOnAux/party_dashboard.html", context)
+
+    else:
+        return redirect("landing")
 
 
 def invite_guest(request):

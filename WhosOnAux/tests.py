@@ -22,18 +22,23 @@ class URLsTests(TestCase):
 
     def test_user_home_url_authenticated(self):
         user = User.objects.create(username="Testuser")
-        self.client.force_login(user)
-        response = self.client.get(f"/home/")
+        client.force_login(user)
+        response = client.get(f"/home/")
         self.assertEqual(response.status_code, OK_200)
 
     def test_user_home_url_not_authenticated(self):
         response = self.client.get(f"/home/")
         self.assertEqual(response.status_code, REDIRECT_302)
 
-    def test_user_hosting_url(self):
-        user = User.objects.create(username="Testuser")
+    def test_user_hosting_url_not_authenticated(self):
         response = client.get(f"/hosting/")
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, REDIRECT_302)
+
+    def test_user_hosting_url_authenticated(self):
+        user = User.objects.create(username="Testuser")
+        client.force_login(user)
+        response = client.get(f"/hosting/")
+        self.assertEqual(response.status_code, OK_200)
 
     def test_create_new_party_url(self):
         user = User.objects.create(username="Testuser")
@@ -50,10 +55,15 @@ class URLsTests(TestCase):
         response = self.client.post(reverse("create_new_party"), form_data)
         self.assertEqual(response.status_code, ERROR404)
 
-    def test_user_attending_url(self):
-        user = User.objects.create(username="Testuser")
+    def test_user_attending_url_not_authenticated(self):
         response = client.get(f"/attending/")
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, REDIRECT_302)
+
+    def test_user_attending_url_authenticated(self):
+        user = User.objects.create(username="Testuser")
+        client.force_login(user)
+        response = client.get(f"/attending/")
+        self.assertEqual(response.status_code, OK_200)
 
     def test_attending_party_url(self):
         user = User.objects.create(username="Testuser")
@@ -61,11 +71,26 @@ class URLsTests(TestCase):
         response = client.get(f"/attending/{party.id}")
         self.assertEqual(response.status_code, 200)
 
-    def test_party_dashboard_url(self):
+    def test_party_dashboard_url_not_authenticated(self):
+        """
+        user is not authenticated
+        :return:
+        """
         user = User.objects.create(username="Testuser")
         party = Party.objects.create(host=user, name="TestParty")
         response = client.get(f"/dashboard/{party.id}")
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, REDIRECT_302)
+
+    def test_party_dashboard_url_authenticated(self):
+        """
+        user is authenticated
+        :return:
+        """
+        user = User.objects.create(username="Testuser")
+        client.force_login(user)
+        party = Party.objects.create(host=user, name="TestParty")
+        response = client.get(f"/dashboard/{party.id}")
+        self.assertEqual(response.status_code, OK_200)
 
 
 class NewPartyFormTests(TestCase):
@@ -104,7 +129,4 @@ class ModelsTests(TestCase):
 
 
 # TODO: add tests
-# TODO: home test user authenticated / not authenticated
-# TODO: Host tests user authenticated / not authenticated
-# TODO: Attending tests user authenticated / not authnticated
 # TODO: Login tests
