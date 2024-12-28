@@ -144,13 +144,4 @@ class SpotifyUtilsTests(TestCase):
         test_id = items[0]['track']['id']
         self.assertEqual(test_id, actual_id)
 
-# WORKOUT_TWERKOUT = '37i9dQZF1DX0HRj9P7NxeE'
-# EXAMPLE = '3cEYpjA9oz9GiPac4AsH4n'
-# LOFI_STUDY = '6zCID88oNjNv9zx6puDHKj'
-#
-# Party_Playlist = SpotifyPlaylist(LOFI_STUDY)
-# print(Party_Playlist.get_image_details())
-# items = Party_Playlist.get_tracks()
-# for item in items:
-#     print(item['track']['id'])
 # TODO: Login tests
