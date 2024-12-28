@@ -81,10 +81,13 @@ def create_new_party(request):
         raise Http404('invalid form!')
 
 def dashboard(request, party_id):
-    # TODO: re-direct if user is not host
     if request.user.is_authenticated:
         party = Party.objects.get(id=party_id)
         host = request.user
+
+        if host != party.host:
+            return redirect("party", party_id)   # view for guests
+
         invited = Attending.objects.filter(party=party)
         context = {"party": party,
                    "host": host,

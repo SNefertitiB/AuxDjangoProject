@@ -82,7 +82,7 @@ class URLsTests(TestCase):
         response = client.get(f"/dashboard/{party.id}")
         self.assertEqual(response.status_code, REDIRECT_302)
 
-    def test_party_dashboard_url_authenticated(self):
+    def test_party_dashboard_url_authenticated_host(self):
         """
         user is authenticated
         :return:
@@ -93,6 +93,18 @@ class URLsTests(TestCase):
         response = client.get(f"/dashboard/{party.id}")
         self.assertEqual(response.status_code, OK_200)
 
+    def test_party_dashboard_url_user_not_host(self):
+        """
+        User is authenticated, but is not the host of the party
+        redirect to attendee view of party
+        :return:
+        """
+        host = User.objects.create(username="Host")
+        attendee = User.objects.create(username="Attendee")
+        party = Party.objects.create(host=host, name="TestParty")
+        client.force_login(attendee)
+        response = client.get(f"/dashboard/{party.id}")
+        self.assertEqual(response.status_code, REDIRECT_302)
 
 class NewPartyFormTests(TestCase):
     def test_valid_form(self):
@@ -128,6 +140,8 @@ class ModelsTests(TestCase):
         self.assertTrue(str(song) == "TestPlaylist")
 
 class SpotifyUtilsTests(TestCase):
+    # TODO: authentication fails in github actions
+    # comment out for push
     def setUp(self):
         example_url = '3cEYpjA9oz9GiPac4AsH4n'
         self.test_playlist = SpotifyPlaylist(example_url)
