@@ -30,6 +30,8 @@ jobs:
         DEBUG: ${{ secrets.DEBUG }}
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+        SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
       run: |
         coverage run --source='.' manage.py test
         coverage html
