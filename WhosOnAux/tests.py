@@ -7,6 +7,7 @@ from WhosOnAux.models import Party, Playlist
 from .forms import NewPartyForm
 
 import WhosOnAux.views
+from WhosOnAux.spotify_utils import SpotifyPlaylist
 # Create your tests here.
 
 REDIRECT_302 = 302   # "Found" or "Moved Temporarily" |Temporarily relocate a site to a new URL
@@ -126,7 +127,30 @@ class ModelsTests(TestCase):
         song = Playlist(name="TestPlaylist", added_by=user)
         self.assertTrue(str(song) == "TestPlaylist")
 
+class SpotifyUtilsTests(TestCase):
+    def setUp(self):
+        example_url = '3cEYpjA9oz9GiPac4AsH4n'
+        self.test_playlist = SpotifyPlaylist(example_url)
 
+    def test_get_image(self):
+        actual_url = 'https://image-cdn-ak.spotifycdn.com/image/ab67706c0000bebb8d0ce13d55f634e290f744ba'
+        json_data = self.test_playlist.get_image_details()[0]
+        test_url = json_data['url']
+        self.assertEqual(test_url, actual_url)
 
-# TODO: add tests
+    def test_get_tracks(self):
+        actual_id = '4rzfv0JLZfVhOhbSQ8o5jZ'
+        items = self.test_playlist.get_tracks()
+        test_id = items[0]['track']['id']
+        self.assertEqual(test_id, actual_id)
+
+# WORKOUT_TWERKOUT = '37i9dQZF1DX0HRj9P7NxeE'
+# EXAMPLE = '3cEYpjA9oz9GiPac4AsH4n'
+# LOFI_STUDY = '6zCID88oNjNv9zx6puDHKj'
+#
+# Party_Playlist = SpotifyPlaylist(LOFI_STUDY)
+# print(Party_Playlist.get_image_details())
+# items = Party_Playlist.get_tracks()
+# for item in items:
+#     print(item['track']['id'])
 # TODO: Login tests
