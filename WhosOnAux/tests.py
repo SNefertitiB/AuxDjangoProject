@@ -3,7 +3,7 @@ from django.test import Client
 # from django.http import HttpRequest
 from django.urls import reverse
 from django.contrib.auth.models import User
-from WhosOnAux.models import Party, Playlist
+from WhosOnAux.models import Party, Playlist, Attending
 from .forms import NewPartyForm
 
 import WhosOnAux.views
@@ -62,9 +62,14 @@ class URLsTests(TestCase):
 
     def test_user_attending_url_authenticated(self):
         user = User.objects.create(username="Testuser")
+        host = User.objects.create(username="host")
+        party_invited = Party.objects.create(name="invited", host=host)
+        # party_uninvited = Party.objects.create(name="uninvited")
+        Attending.objects.create(party=party_invited, attendee=user)
         client.force_login(user)
         response = client.get(f"/attending/")
         self.assertEqual(response.status_code, OK_200)
+        # TODO: test that only the invited party shows up
 
     def test_attending_party_url(self):
         user = User.objects.create(username="Testuser")

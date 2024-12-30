@@ -57,4 +57,7 @@ class Attending(models.Model):
     }
     status = models.CharField(max_length=12, choices=STATUS_CHOICES, default=NO_RESPONSE)
 
+    def __str__(self):
+        return self.attendee
+
 

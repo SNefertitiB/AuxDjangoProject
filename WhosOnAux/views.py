@@ -27,8 +27,7 @@ def attending(request):
     if request.user.is_authenticated:
         user = request.user
         user_id = user.id
-        # TODO: only show parties that user is attending
-        parties = Party.objects.all()
+        parties = Attending.objects.filter(attendee=user)
         context = {
             "user_id": user_id,
             "attending_parties": parties,
@@ -41,7 +40,6 @@ def attending(request):
 
 
 def party(request, party_id):
-    # TODO: get user from request.user
     # TODO: confirm user has access to party
     template = loader.get_template("WhosOnAux/party.html")
     party = Party.objects.get(id=party_id)
