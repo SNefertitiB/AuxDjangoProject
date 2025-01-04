@@ -27,7 +27,8 @@ def attending(request):
     if request.user.is_authenticated:
         user = request.user
         user_id = user.id
-        parties = Attending.objects.filter(attendee=user)
+        filtered = Attending.objects.filter(attendee=user)
+        parties = [entry.party for entry in filtered]
         context = {
             "user_id": user_id,
             "attending_parties": parties,
