@@ -74,10 +74,28 @@ class URLsTests(TestCase):
         self.assertNotIn(party_uninvited, response.context["attending_parties"])
 
     def test_attending_party_url(self):
-        user = User.objects.create(username="Testuser")
-        party = Party.objects.create(host=user, name="TestParty")
+        host = User.objects.create(username="Host")
+        guest = User.objects.create(username="Guest")
+        client.force_login(guest)
+        party = Party.objects.create(host=host, name="TestParty")
+        Attending.objects.create(party=party, attendee=guest)
         response = client.get(f"/attending/{party.id}")
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, OK_200)
+
+    def test_attending_party_url_host(self):
+        host = User.objects.create(username="Host")
+        party = Party.objects.create(host=host, name="TestParty")
+        client.force_login(host)
+        response = client.get(f"/attending/{party.id}")
+        self.assertEqual(response.status_code, REDIRECT_302)
+
+    def test_attending_party_url_not_invited(self):
+        host = User.objects.create(username="Host")
+        party = Party.objects.create(host=host, name="TestParty")
+        uninvited = User.objects.create(username="Uninvited")
+        client.force_login(uninvited)
+        response = client.get(f"/attending/{party.id}")
+        self.assertEqual(response.status_code, REDIRECT_302)
 
     def test_party_dashboard_url_not_authenticated(self):
         """

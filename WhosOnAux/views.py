@@ -3,7 +3,7 @@ from django.template import loader
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render, redirect
 from django.core.mail import send_mail
-# from django.urls import reverse
+from django.urls import reverse
 
 from .models import Party, Attending
 from .forms import NewPartyForm, InviteGuestForm
@@ -26,11 +26,10 @@ def user_home(request):
 def attending(request):
     if request.user.is_authenticated:
         user = request.user
-        user_id = user.id
         filtered = Attending.objects.filter(attendee=user)
         parties = [entry.party for entry in filtered]
         context = {
-            "user_id": user_id,
+            "user_id": user.id,
             "attending_parties": parties,
         }
         template = loader.get_template("WhosOnAux/attending.html")
@@ -41,14 +40,30 @@ def attending(request):
 
 
 def party(request, party_id):
-    # TODO: confirm user has access to party
-    template = loader.get_template("WhosOnAux/party.html")
-    party = Party.objects.get(id=party_id)
-    user = request.user
-    context = {"party": party,
-               "user": user,
-               }
-    return HttpResponse(template.render(context, request))
+    if request.user.is_authenticated:
+        user = request.user
+        party = Party.objects.get(id=party_id)
+
+        # user is host, redirect to dashboard
+        if user == party.host:
+            return redirect('dashboard', party_id=party_id)
+
+        # user is not host and is invited
+        if Attending.objects.filter(party=party, attendee=user):
+            context = {"party": party,
+                       "user": user,
+                       }
+            template = loader.get_template("WhosOnAux/party.html")
+            return HttpResponse(template.render(context, request))
+
+        # user is not invited, redirect to list of parties they are attending
+        else:
+            # TODO: tell user they don'thave access to that party
+            # TODO: allow user to request invite to party?
+            return redirect('attending')
+
+    else:
+        return redirect("landing")
 
 
 def hosting(request):
