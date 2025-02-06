@@ -3,8 +3,9 @@ from django.test import Client
 # from django.http import HttpRequest
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.core import mail
 from WhosOnAux.models import Party, Playlist, Attending
-from .forms import NewPartyForm
+from .forms import NewPartyForm, InviteGuestForm
 
 import WhosOnAux.views
 from WhosOnAux.spotify_utils import SpotifyPlaylist
@@ -112,6 +113,20 @@ class URLsTests(TestCase):
         response = client.get(f"/dashboard/{party.id}")
         self.assertEqual(response.status_code, REDIRECT_302)
 
+    def test_invite_guest_url(self):
+        host = User.objects.create(username="Testuser")
+        self.client.force_login(host)
+        form_data = {'email':"guest@example.com"}
+        response = self.client.post(reverse("invite_guest"), form_data)
+        self.assertEqual(response.status_code, 302)
+
+    def test_invite_guest_invalid(self):
+        host = User.objects.create(username="Testuser")
+        self.client.force_login(host)
+        form_data = {}   # invalid entry
+        response = self.client.post(reverse("invite_guest"), form_data)
+        self.assertEqual(response.status_code, ERROR404)
+
 class NewPartyFormTests(TestCase):
     def test_valid_form(self):
         name = "A party name"
@@ -123,6 +138,22 @@ class NewPartyFormTests(TestCase):
     def test_invalid_form_no_data(self):
         form = NewPartyForm()
         self.assertFalse(form.is_valid())
+
+class InviteGuestFormTests(TestCase):
+    def setUp(self):
+        self.host = User.objects.create_user(username='Host')
+        self.client = Client()
+        client.force_login(self.host)
+    def test_valid_form(self):
+        form_data = {'email':'guest@example.com'}
+        form = InviteGuestForm(data=form_data)
+        self.assertTrue(form.is_valid())
+
+    def test_invite_sent(self):
+        form_data = {'email': 'guest@example.com'}
+        response = self.client.post(reverse('invite_guest'), form_data)
+        self.assertEqual(len(mail.outbox), 1)  # 1 email should have been sent
+        self.assertIn('guest@example.com', mail.outbox[0].to)
 
 class ModelsTests(TestCase):
     def test_party_get_name(self):

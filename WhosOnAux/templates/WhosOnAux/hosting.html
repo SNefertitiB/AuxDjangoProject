@@ -29,7 +29,8 @@
                     </div>
 
                     <div class="modal-body">
-                        <form action="/create_new_party/" method="POST">{% csrf_token %}
+                        <form action="/create_new_party/" method="POST">
+                            {% csrf_token %}
                             <!-- name -->
                             <label for="party_name">Party Name:</label>
                             <input type="text" class="form-control" id="party_name" placeholder="Name your party" name="party_name">
@@ -37,6 +38,7 @@
                             <!-- description -->
                             <label for="description">Description:</label>
                             <textarea class="form-control" rows="5" id="description" name="description"></textarea>
+                            <!-- submit button -->
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
                     </div>
@@ -49,9 +51,11 @@
         </div>
 
         <!-- Party Cards -->
-        <div class="col-lg-4 col-md-6 col-sm-12">
+{#        <div class="col-lg-4 col-md-6 col-sm-12">#}
         <!-- <div class="d-flex flex-nowrap"> -->
         <!-- <div class="container bg-dark text-light"> -->
+        <div class="grid-container" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(310px, 2fr))">
+
             {% for x in hosting_parties %}
                 <!-- Cards -->
                 <div class="card" style="max-width:300px">
@@ -66,5 +70,6 @@
                 <p>Not hosting any parties</p>
             {% endfor %}
         </div>
+{#        </div>#}
     </div>
 {% endblock %}

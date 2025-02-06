@@ -6,7 +6,7 @@ from django.core.mail import send_mail
 # from django.urls import reverse
 
 from .models import Party, Attending
-from .forms import NewPartyForm
+from .forms import NewPartyForm, InviteGuestForm
 
 # Create your views here.
 def landing(request):
@@ -66,18 +66,22 @@ def hosting(request):
         return redirect("landing")
 
 def create_new_party(request):
-    form = NewPartyForm(request.POST)
-    if form.is_valid():
-        host = request.user
-        name = form.cleaned_data["party_name"]
-        # TODO: date =
-        description = form.cleaned_data["description"]
-        new_party = Party(host=host, name=name, description=description)
-        new_party.save()
-        # TODO: fix redirect when trying to create new party (requires csrf token)
-        return redirect("hosting")
-    else:
-        raise Http404('invalid form!')
+    if request.method == "POST":
+        form = NewPartyForm(request.POST)
+        if form.is_valid():
+            host = request.user
+            name = form.cleaned_data["party_name"]
+            # TODO: date =
+            description = form.cleaned_data["description"]
+            new_party = Party(host=host, name=name, description=description)
+            new_party.save()
+            return redirect("hosting")
+        else:
+            raise Http404('invalid form!')
+    # else:
+    #     # for get requests, show an empty form
+    #     form = NewPartyForm()
+    # return render(request, "your_template.html", {"form": form})
 
 def dashboard(request, party_id):
     if request.user.is_authenticated:
@@ -103,16 +107,21 @@ def dashboard(request, party_id):
 
 
 def invite_guest(request):
-    form = NewPartyForm(request.POST)
+    #TODO:  set up EMAIL_BACKEND in settings.py
+    form = InviteGuestForm(request.POST)
     if form.is_valid():
         host = request.user
+        # party = request.party get party name from request?
         #  get email from form
         # check if profile with email exists
         # if not, create profile
         # send email with link to create profile / accept invitation
-        subject = "XYZ invitd you to ABC Party"
+        subject = f"{host} invitd you to a party"
         message = f"{host} has invited you to a party. Details of the invite with link to site"
         sent_from = 'snb331@nyu.edu'    # TODO: should be updated
-        send_mail(subject, message, sent_from)
+        send_to = [form.cleaned_data["email"]]
+        send_mail(subject, message, sent_from, send_to)
+        return redirect("hosting")
+    else:
+        raise Http404('invalid form!')
 
-        return None # TODO: update with redirect?

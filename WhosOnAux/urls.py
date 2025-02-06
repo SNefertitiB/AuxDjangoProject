@@ -18,4 +18,5 @@ urlpatterns = [
     # ex: /create_new_party/
     path("dashboard/<int:party_id>", views.dashboard, name="dashboard"),
     # ex: /dashboard/001
+    path("invite_guest/", views.invite_guest, name="invite_guest")
 ]

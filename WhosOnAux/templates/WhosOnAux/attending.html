@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="container bg-dark text-light">
+        <div class="grid-container" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(310px, 2fr))">
             <ul>
                 {% for x in attending_parties %}
                     <a href="/attending/{{ x.id }}">{{ x.name }}</a>
