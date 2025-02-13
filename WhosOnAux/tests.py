@@ -9,6 +9,7 @@ from .forms import NewPartyForm, InviteGuestForm
 
 import WhosOnAux.views
 from WhosOnAux.spotify_utils import SpotifyPlaylist
+from unittest.mock import patch, MagicMock
 # Create your tests here.
 
 REDIRECT_302 = 302   # "Found" or "Moved Temporarily" |Temporarily relocate a site to a new URL
@@ -195,14 +196,14 @@ class ModelsTests(TestCase):
         self.assertTrue(str(song) == "TestPlaylist")
 
 # class SpotifyUtilsTests(TestCase):
-#     # TODO: authentication fails in github actions
+#     # TODO: authentication fails in github actions - use mock to fake API calls?
 #     # comment out for push
 #     def setUp(self):
 #         example_url = '3cEYpjA9oz9GiPac4AsH4n'
 #         self.test_playlist = SpotifyPlaylist(example_url)
 #
 #     def test_get_image(self):
-#         actual_url = 'https://image-cdn-ak.spotifycdn.com/image/ab67706c0000bebb8d0ce13d55f634e290f744ba'
+#         actual_url = 'https://image-cdn-fa.spotifycdn.com/image/ab67706c0000bebb8d0ce13d55f634e290f744ba'
 #         json_data = self.test_playlist.get_image_details()[0]
 #         test_url = json_data['url']
 #         self.assertEqual(test_url, actual_url)

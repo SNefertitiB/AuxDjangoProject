@@ -3,13 +3,14 @@ import os
 import base64
 from requests import post, get
 import json
+from typing import List
 
 load_dotenv()
 
 client_id = os.getenv("SPOTIFY_CLIENT_ID")
 client_secret = os.getenv("SPOTIFY_CLIENT_SECRET")
 
-def get_token():
+def get_token() -> str:
     # create authorization string to be encoded with base64
     auth_string = client_id + ":" + client_secret
     auth_bytes = auth_string.encode("utf-8")
@@ -27,18 +28,18 @@ def get_token():
     token = json_result["access_token"]
     return token
 
-def get_auth_header(token):
+def get_auth_header(token:str) -> dict:
     return {"Authorization": "Bearer " + token}
 
 class SpotifyPlaylist:
-    def __init__(self, playlist_id:str):
+    def __init__(self, playlist_id:str) -> None:
         self.playlist_id = playlist_id
         self.token = get_token()
         # GET /playlists/{playlist_id}
         self.headers = get_auth_header(self.token)
 
 
-    def get_tracks(self):
+    def get_tracks(self) -> dict:
         """
         use item['track']['name'] to get names
         use item['track']['id'] to get id
@@ -51,7 +52,7 @@ class SpotifyPlaylist:
         tracks = []
         return json_result
 
-    def get_image_details(self):
+    def get_image_details(self) -> List[dict]:
         """
         json_result[index]['url']
         json_result[index]['height'] in pixels
