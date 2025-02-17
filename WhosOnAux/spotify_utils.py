@@ -36,7 +36,7 @@ class SpotifyPlaylist:
         self.playlist_id = playlist_id
         self.token = get_token()
         # GET /playlists/{playlist_id}
-        self.headers = get_auth_header(self.token)
+        self.auth_header = get_auth_header(self.token)
 
 
     def get_tracks(self) -> dict:
@@ -47,9 +47,8 @@ class SpotifyPlaylist:
         :return: items:dict
         """
         url = f"https://api.spotify.com/v1/playlists/{self.playlist_id}/tracks"
-        result = get(url, headers=self.headers)
+        result = get(url, headers=self.auth_header)
         json_result = json.loads(result.content)['items']
-        tracks = []
         return json_result
 
     def get_image_details(self) -> List[dict]:
@@ -60,6 +59,6 @@ class SpotifyPlaylist:
         :return: json_result: list of dict
         """
         url = f"https://api.spotify.com/v1/playlists/{self.playlist_id}/images"
-        result = get(url, headers=self.headers)
+        result = get(url, headers=self.auth_header)
         json_result = json.loads(result.content)
         return json_result

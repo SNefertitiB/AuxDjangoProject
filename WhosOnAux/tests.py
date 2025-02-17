@@ -8,8 +8,9 @@ from WhosOnAux.models import Party, Playlist, Attending
 from .forms import NewPartyForm, InviteGuestForm
 
 import WhosOnAux.views
-from WhosOnAux.spotify_utils import SpotifyPlaylist
+import WhosOnAux.spotify_utils as spotify_utils
 from unittest.mock import patch, MagicMock
+
 # Create your tests here.
 
 REDIRECT_302 = 302   # "Found" or "Moved Temporarily" |Temporarily relocate a site to a new URL
@@ -195,23 +196,40 @@ class ModelsTests(TestCase):
         song = Playlist(name="TestPlaylist", added_by=user)
         self.assertTrue(str(song) == "TestPlaylist")
 
-# class SpotifyUtilsTests(TestCase):
-#     # TODO: authentication fails in github actions - use mock to fake API calls?
-#     # comment out for push
-#     def setUp(self):
-#         example_url = '3cEYpjA9oz9GiPac4AsH4n'
-#         self.test_playlist = SpotifyPlaylist(example_url)
-#
-#     def test_get_image(self):
-#         actual_url = 'https://image-cdn-fa.spotifycdn.com/image/ab67706c0000bebb8d0ce13d55f634e290f744ba'
-#         json_data = self.test_playlist.get_image_details()[0]
-#         test_url = json_data['url']
-#         self.assertEqual(test_url, actual_url)
-#
-#     def test_get_tracks(self):
-#         actual_id = '4rzfv0JLZfVhOhbSQ8o5jZ'
-#         items = self.test_playlist.get_tracks()
-#         test_id = items[0]['track']['id']
-#         self.assertEqual(test_id, actual_id)
+class SpotifyUtilsTests(TestCase):
+    def setUp(self):
+        """
+        MagicMock calls to spotify API and create a playlist for testing
+        :return:
+        """
+        # example_url = '3cEYpjA9oz9GiPac4AsH4n'
+        fake_url = 'fakeurl'
+        spotify_utils.get_token = MagicMock(return_value='fake_token')
+        spotify_utils.SpotifyPlaylist.get_image_details = MagicMock(return_value=[{'url':'fake_image_url'}])
+        spotify_utils.SpotifyPlaylist.get_tracks = MagicMock(return_value={'tracks_keys':'tracks_values'})
+        self.test_playlist = spotify_utils.SpotifyPlaylist(fake_url)
+
+    def test_SpotifyPlaylist_token(self):
+        token = self.test_playlist.token
+        self.assertEqual(token, 'fake_token')
+
+    def test_SpotifyPlaylist_auth_header(self):
+        token = spotify_utils.get_token()
+        test_auth_header = self.test_playlist.auth_header
+        actual_auth_header = {"Authorization": "Bearer " + token}
+        self.assertEqual(test_auth_header, actual_auth_header)
+
+    def test_get_image(self):
+        # actual_url = 'https://image-cdn-fa.spotifycdn.com/image/ab67706c0000bebb8d0ce13d55f634e290f744ba'
+        actual_url = 'fake_image_url'  # MagicMaocked
+        json_data = self.test_playlist.get_image_details()[0]
+        test_url = json_data['url']
+        self.assertEqual(test_url, actual_url)
+
+    def test_get_tracks(self):
+        actual_tracks = {'tracks_keys':'tracks_values'}   #MagicMocked
+        test_tracks = self.test_playlist.get_tracks()
+        self.assertEqual(test_tracks, actual_tracks)
+
 
 # TODO: Login tests
