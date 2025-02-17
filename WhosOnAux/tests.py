@@ -1,15 +1,13 @@
 from django.test import TestCase
 from django.test import Client
-# from django.http import HttpRequest
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.core import mail
 from WhosOnAux.models import Party, Playlist, Attending
 from .forms import NewPartyForm, InviteGuestForm
 
-import WhosOnAux.views
 import WhosOnAux.spotify_utils as spotify_utils
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock
 
 # Create your tests here.
 
@@ -18,7 +16,7 @@ OK_200 = 200         # GET A resource was retrieved and included in the response
 ERROR404 = 404
 
 client = Client()
-# request = HttpRequest
+
 class URLsTests(TestCase):
     def test_landing_url(self):
         response = client.get("")

@@ -1,9 +1,8 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.template import loader
 from django.http import Http404
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import render, redirect
 from django.core.mail import send_mail
-from django.urls import reverse
 
 from .models import Party, Attending
 from .forms import NewPartyForm, InviteGuestForm
